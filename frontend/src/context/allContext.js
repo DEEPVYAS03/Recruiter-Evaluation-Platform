@@ -5,9 +5,14 @@ const UserContext = createContext();
 export const UserProvider = ({children}) => {
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
+    const [phone,setPhone] = useState(null);
+    const [linkedin,setLinkedin] = useState('');
+    const [skills,setSkills] = useState([]);
+    const [recommskills,setRecommskills] = useState([]);
+    const [tips,setTips] = useState([]);
 
     return (
-        <UserContext.Provider value={{name,setName,email,setEmail}}>
+        <UserContext.Provider value={{name,setName,email,setEmail,phone,setPhone,linkedin,setLinkedin,skills,setSkills,recommskills,setRecommskills,tips,setTips}}>
             {children}
         </UserContext.Provider>
     )

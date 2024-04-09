@@ -20,13 +20,13 @@ app.use((req, res, next) =>{
 // importing routes 
 // const routeName = require('./routes/routeName') 
 
-
+const userRoutes = require('./routes/userRoutes')
 
 
 //using of routes 
 // (app.use('/api',routeName))
 
-
+app.use('/api',userRoutes)
 
 
 // connecting to database
@@ -64,6 +64,9 @@ app.get('/',(req,res)=>{
         ])
     }
 })
+
+
+
 
 // listening to server
 app.listen(process.env.PORT,()=>{

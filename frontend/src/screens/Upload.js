@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useUser } from '../context/allContext';
 import HomeNavbar from './../components/Navbar';
+import axios from 'axios';
+
 
 const Upload = () => {
     const [file, setFile] = useState(null);
@@ -11,6 +13,14 @@ const Upload = () => {
     const [submitClick, setSubmitClick] = useState(false); // State to check if submit button is clicked
     const { email, setEmail } = useUser();
     const { name, setName } = useUser();
+    const { phone, setPhone } = useUser();
+    const { linkedin, setLinkedin } = useUser();
+    const { skills, setSkills } = useUser();
+    const { recommskills, setRecommskills } = useUser();
+    const { tips, setTips } = useUser();
+
+
+
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
@@ -22,12 +32,23 @@ const Upload = () => {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // Perform submission logic here
         // For demonstration purposes, just showing the modal
         if (file) {
             setShowSuccessModal(true);
             setSubmitClick(true);
+            console.log(email);
+            const response = await axios.get(`http://localhost:5000/api/user/${email}`);
+            const data = await response.data;
+            console.log(data);
+            setPhone(data.phone);
+            setLinkedin(data.linkedin);
+            console.log(data.skills);
+            setSkills(data.skills);
+            setRecommskills(data.recommskills);
+            setTips(data.tips);
+    
         }
         else {
             setShowFailureModal(true);
@@ -40,13 +61,14 @@ const Upload = () => {
         setShowFailureModal(false);
     };
 
+
     return (
         <>
             <HomeNavbar props={'Upload'} />
             <div className='d-flex flex-column flex-md-row min-h-screen'>
                 <div className='w-100'>
                     <div className='mt-10 ml-28'>
-                        <div className='text-4xl font-semibold'>Hello, {name}</div>
+                        <div className='text-4xl font-semibold'>Hello, {localStorage.getItem('username')}</div>
                         <div className='mt-5 text-2xl'>
                             <div>
                                 Please upload your resume here:
@@ -68,15 +90,29 @@ const Upload = () => {
                         </div>
                     </div>
                 </div>
-                <div className=' mt-3 ml-28 h-96 bg-slate-100 mr-2 min-h-fit w-100 rounded-lg p-4'>
+                <div className=' mt-3 ml-28  bg-slate-100 mr-2 w-100 overflow-hidden h-max rounded-lg p-4 '>
                     <div className='font-bold text-3xl'>
                         Your Analyzed Resume:
                     </div>
-                    {submitClick == false ? <div>Upload your resume first</div> :
+                    {submitClick === false ? <div>Upload your resume first</div> :
                         <div>
+
                             <div className='mt-2'>
                                 {/* Display the uploaded file name */}
                                 {file && <div>File Name: {file.name}</div>}
+                            </div>
+
+                            {/* Your Basic info */}
+                            <div>
+                                <div className='mt-2 text-xl font-semibold'>
+                                    Your Basic Info:
+                                </div>
+                                <div>
+                                    <div><span className='font-semibold'>Name:</span> {name}</div>
+                                    <div><span className='font-semibold'>Email:</span> {email}</div>
+                                    <div><span className='font-semibold'>Phone:</span> {phone}</div>
+                                    <div><span className='font-semibold'>Linkedin:</span> <a href={linkedin} target="_blank" rel="noopener noreferrer">{linkedin}</a></div>
+                                </div>
                             </div>
 
                             {/* Your skills */}
@@ -84,30 +120,47 @@ const Upload = () => {
                                 <div className='mt-2 text-xl font-semibold'>
                                     Your skills:
                                 </div>
-                                <div className='mt-2 flex flex-row gap-3'>
+                                <div className='mt-2 flex flex-row gap-3 overflow-x-scroll items-center' style={{ scrollbarWidth: 1 }}>
                                     {/* Display the skills extracted from the resume */}
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Java</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>React</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Node.js</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Express</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Python</span>
-                                </div>
-                            </div>
-                            {/* Recommended Skilss */}
-                            <div>
-                                <div className='mt-4 text-xl font-semibold'>
-                                    Recommended skills:
-                                </div>
-                                <div className='mt-2 flex flex-row gap-3'>
-                                    {/* Display the skills extracted from the resume */}
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Java</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>React</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Node.js</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Express</span>
-                                    <span className='bg-blue-600 text-white px-4 py-2 rounded-full'>Python</span>
+                                    {skills.map((skill, index) => (
+                                        <span key={index} className='bg-blue-600 text-white px-4 py-2 rounded-full text-center'  style={{ whiteSpace: 'nowrap' }}>{skill}</span>
+                                    ))}
                                 </div>
                             </div>
 
+                            {/* Recommended Skills */}
+                                
+                            <div>
+                                <div className='mt-2 text-xl font-semibold'>
+                                    Recommended skills:
+                                </div>
+                                <div className='mt-2 flex flex-row gap-3 overflow-x-scroll items-center' style={{ scrollbarWidth: 1 }}>
+                                    {/* Display the skills extracted from the resume */}
+                                    {recommskills.map((skill, index) => (
+                                        <span key={index} className='bg-blue-600 text-white px-4 py-2 rounded-full text-center'  style={{ whiteSpace: 'nowrap' }}>{skill}</span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Tips */}
+                            <div>
+                                <div className='mt-4 text-xl font-semibold'>
+                                    Resume Tips:
+                                </div>
+                                <div className='mt-2'>
+                                    <div className='font-semibold'>1. Use bullet points to describe your work experience</div>
+                                    <div className='font-semibold'>2. Use action verbs to describe your work experience</div>
+                                    <div className='font-semibold'>3. Use a professional email address</div>
+                                </div>
+                            </div>
+
+                            {/* Recommended Video */}
+                            <div>
+                                <div className='mt-4 text-xl font-semibold'>Resume Writing tips:</div>
+                                <div className='mt-2 mb-4'>
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Tt08KmFfIYQ?si=-x1cFYa1py75aXhY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     }
 

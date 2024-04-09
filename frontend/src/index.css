@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* index.css */
+
+/* Style scrollbar */
+::-webkit-scrollbar {
+    width: 2px; /* Set the width of the scrollbar */
+    height: 4px; /* Set the height of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar handle on hover */
+}

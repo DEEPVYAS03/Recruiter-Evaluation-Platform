@@ -20,11 +20,10 @@ const Login = () => {
             <GoogleLogin
               onSuccess={credentialResponse => {
                 const decoded = jwtDecode(credentialResponse?.credential);
-                console.log("Decoded name:",decoded.name)
-                console.log("Decoded email:",decoded.email)
-
                 setName(decoded.name);
                 setEmail(decoded.email);
+                localStorage.setItem('username',decoded.name);
+                localStorage.setItem('email',decoded.email);
                 navigate('/upload');
               }}
               onError={() => {
