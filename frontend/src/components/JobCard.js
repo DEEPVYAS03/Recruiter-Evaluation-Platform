@@ -20,8 +20,7 @@ function JobCard() {
                         </div>
                     </Card.Text>
                     <div className='flex flex-row justify-around'>
-                        <Button variant="outline-primary">View Details</Button>
-                        <Button variant="outline-success">Apply</Button>
+                        <Button variant="outline-success">View Applied Candidates</Button>
                     </div>
                 </Card.Body>
             </Card>
