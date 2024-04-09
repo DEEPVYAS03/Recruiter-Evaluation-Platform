@@ -17,7 +17,7 @@ const PostJob = () => {
     setJdFile(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const formData = {
       company,
@@ -26,8 +26,10 @@ const PostJob = () => {
       lastDate,
       jdFile,
     };
-    // Here you can handle form submission, for example, send data to server
+    
     console.log(formData);
+
+    // const response
 
     setCompany('');
     setJobProfile('');
@@ -58,7 +60,7 @@ const PostJob = () => {
           <Modal.Title>Add a Job</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form action='/upload' method='POST' encType='multipart/form-data' onSubmit={handleSubmit}>
+          <Form action='/api/jobpost' method='POST' encType='multipart/form-data' onSubmit={handleSubmit}>
             <Form.Group controlId="company">
               <Form.Label>Company</Form.Label>
               <Form.Control

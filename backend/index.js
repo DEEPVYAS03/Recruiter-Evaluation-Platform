@@ -21,13 +21,14 @@ app.use((req, res, next) =>{
 // const routeName = require('./routes/routeName') 
 
 const userRoutes = require('./routes/userRoutes')
+const jobRoutes = require('./routes/jobRoutes')
 
 
 //using of routes 
 // (app.use('/api',routeName))
 
 app.use('/api',userRoutes)
-
+app.use('/api',jobRoutes)
 
 // connecting to database
 
