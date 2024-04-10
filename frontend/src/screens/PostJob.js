@@ -4,6 +4,7 @@ import JobCard from '../components/JobCard';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 const PostJob = () => {
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +30,14 @@ const PostJob = () => {
     
     console.log(formData);
 
-    // const response
+    const response=await axios.post('http://localhost:5000/api/jobpost',formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    });
+    const data = response.data; 
+    console.log(data);
+
 
     setCompany('');
     setJobProfile('');

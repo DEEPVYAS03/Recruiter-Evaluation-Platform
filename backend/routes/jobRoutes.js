@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {createJob} = require('../controllers/jobController');
+const {createJob, getJobs} = require('../controllers/jobController');
 const multer = require('multer');
 
 
@@ -15,4 +15,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 
+
 router.post('/jobpost', upload.single('jdFile'), createJob)
+
+router.get('/getjobs', getJobs)
+
+
+module.exports = router;

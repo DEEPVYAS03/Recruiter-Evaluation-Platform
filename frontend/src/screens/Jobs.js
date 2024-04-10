@@ -1,16 +1,21 @@
 import React from 'react'
-import JobCard from '../components/JobCard'
+
 import { useUser } from '../context/allContext';
+import HomeNavbar from './../components/Navbar';
+import CandidateCard from './../components/CandidateCard';
 
 const Jobs = () => {
   const { name, setName } = useUser();
   return (
-    <div className='m-10'>
-      <div className='text-2xl font-semibold'>Available Jobs</div>
+    <>
+    <HomeNavbar props={"jobs"}/>
+    <div className='mt-10 ml-24'>
+      <div className='text-2xl font-semibold'>Available Jobs:</div>
       <div className='mt-4'>
-      <JobCard/>
+      <CandidateCard/>
       </div>
     </div>
+    </>
   )
 }
 

@@ -1,29 +1,60 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Logo2 from '../images/logo2.png';
-function JobCard() {
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
+const JobCard = () => {
+    const [jobs, setJobs] = useState([]);
+    useEffect(() => {
+        getJobs();
+        console.log(jobs);
+    })
+    const getJobs = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/getjobs');
+            const data = response.data;
+            setJobs(data);
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
+
     return (
-        <div>
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={Logo2} />
-                <Card.Body>
-                    <Card.Title>React Native Developer</Card.Title>
-                    <Card.Text>
-                        <div>
-                            <span className='font-semibold'>Company:</span> Delloite
-                        </div>
-                        <div>
-                            <span className='font-semibold'>Salary:</span> 12000
-                        </div>
-                        <div>
-                            <span className='font-semibold'>Deadline:</span> date
-                        </div>
-                    </Card.Text>
-                    <div className='flex flex-row justify-around'>
-                        <Button variant="outline-success">View Applied Candidates</Button>
+        <div className='flex flex-row gap-3'>
+            {
+                jobs.map((job) => (
+                    <div>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={Logo2} />
+                            <Card.Body>
+                                <Card.Title>{job.jobProfile}</Card.Title>
+                                <Card.Text>
+                                    <div>
+                                        <span className='font-semibold'>Company:</span> {job.company}
+                                    </div>
+                                    <div>
+                                        <span className='font-semibold'>Salary:</span> {job.salary}
+                                    </div>
+                                    <div>
+                                        <span className='font-semibold'>Deadline:</span> {formatDate(job.lastDate)}
+                                    </div>
+                                </Card.Text>
+                                <div className='flex flex-row justify-around'>
+                                    <Button variant="outline-success">View Applied Candidates</Button>
+                                </div>
+                            </Card.Body>
+                        </Card>
                     </div>
-                </Card.Body>
-            </Card>
+                ))
+            }
+
         </div>
     );
 }
