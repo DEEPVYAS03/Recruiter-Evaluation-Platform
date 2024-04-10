@@ -51,6 +51,11 @@ function HomeNavbar(props) {
     }
   }, [props.props]); // Run the effect only when props.props changes
 
+
+  const handleLogout=()=>{
+    localStorage.clear();
+  }
+
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
@@ -65,25 +70,25 @@ function HomeNavbar(props) {
             {upload &&
               <>
                 <Nav.Link href="/jobs">Jobs</Nav.Link>
-                <Nav.Link href="/logout">Logout</Nav.Link>
+                <Nav.Link href="/" onclick={handleLogout}>Logout</Nav.Link>
               </>}
             {hrhome &&
               <>
                 <Nav.Link href="/hr/post">Post Job</Nav.Link>
-                <Nav.Link href="/logout">Logout</Nav.Link>
+                <Nav.Link href="/" onclick={handleLogout}>Logout</Nav.Link>
               </>
             }
             {
               post &&
               <>
-                <Nav.Link href="/hr/home">Hr HomePage</Nav.Link>
-                <Nav.Link href="/logout">Logout</Nav.Link>
+                <Nav.Link href="/hr/home">Search</Nav.Link>
+                <Nav.Link href="/" onclick={handleLogout}>Logout</Nav.Link>
               </>
             }
             {
               jobs &&
               <>  
-                <Nav.Link href="/logout">Logout</Nav.Link>
+                <Nav.Link href="/" onclick={handleLogout}>Logout</Nav.Link>
               </>
             }
           </Nav>

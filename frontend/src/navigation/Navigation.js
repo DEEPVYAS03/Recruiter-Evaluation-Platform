@@ -16,7 +16,7 @@ const Navigation = () => {
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/jobs" element={<Jobs />} />
                 <Route path="/hr" element={<Hr/>} />
-                <Route path="/hr/home" element={<HrHome/>} />
+                <Route path="/hr/search" element={<HrHome/>} />
                 <Route path="/hr/post" element={<PostJob/>} />
 
             </Routes>

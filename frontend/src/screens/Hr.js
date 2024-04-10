@@ -11,7 +11,7 @@ const Hr = () => {
 
     const handleSubmit = () => {
         if (adminId === '777' || adminId === '888' || adminId === '999') {
-            navigate('/hr/home');
+            navigate('/hr/post');
         }
     };
 
