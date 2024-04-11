@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Logo2 from '../images/logo2.png';
 import axios from 'axios';
-import { Document, Page } from 'react-pdf';
 import Modal from 'react-bootstrap/Modal';
 import { useUser } from '../context/allContext';
+import DeepResume from '../uploads/Deep_Resume.pdf';
 
 const CandidateCard = () => {
     const [jobs, setJobs] = useState([]);
@@ -64,52 +64,37 @@ const CandidateCard = () => {
 
     return (
         <div className='flex flex-row gap-3'>
-            {
-                jobs.map((job) => (
-                    <div key={job._id}>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={Logo2} />
-                            <Card.Body>
-                                <Card.Title>{job.jobProfile}</Card.Title>
-                                <Card.Text>
-                                    <div>
-                                        <span className='font-semibold'>Company:</span> {job.company}
-                                    </div>
-                                    <div>
-                                        <span className='font-semibold'>Salary:</span> {job.salary}
-                                    </div>
-                                    <div>
-                                        <span className='font-semibold'>Deadline:</span> {formatDate(job.lastDate)}
-                                    </div>
-                                </Card.Text>
-                                <div className='flex flex-row justify-around'>
-                                    <Button variant="outline-primary" onClick={() => handleViewDetails(job)}>View Details</Button>
-                                      
-                                    <Button 
-                                        variant="outline-success" 
-                                        onClick={() => handleApply(job._id)} 
-                                        disabled={appliedJobs.has(job._id)}
-                                    >
-                                        {appliedJobs.has(job._id) ? "Applied" : "Apply"}
-                                    </Button>
+            {jobs.map((job) => (
+                <div key={job._id}>
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src={Logo2} />
+                        <Card.Body>
+                            <Card.Title>{job.jobProfile}</Card.Title>
+                            <Card.Text>
+                                <div>
+                                    <span className='font-semibold'>Company:</span> {job.company}
                                 </div>
-                            </Card.Body>
-                        </Card>
-                    </div>
-                ))
-            }
-            {selectedJob &&
-                <div className="pdf-viewer">
-                    <Button variant="danger" onClick={handleCloseDetails}>Close</Button>
-                    <Document
-                        file={`../${trimFilePath(selectedJob.jdFile)}`}
-                        onLoadSuccess={() => console.log("Document Loaded successfully")}
-                        onLoadError={() => console.error("Failed to load document")}
-                    >
-                        <Page pageNumber={1} />
-                    </Document>
+                                <div>
+                                    <span className='font-semibold'>Salary:</span> {job.salary}
+                                </div>
+                                <div>
+                                    <span className='font-semibold'>Deadline:</span> {formatDate(job.lastDate)}
+                                </div>
+                            </Card.Text>
+                            <div className='flex flex-row justify-around'>
+                                <a href={require(`../${trimFilePath(job.jdFile)}`)} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">View Details</a>
+                                <Button
+                                    variant="outline-success"
+                                    onClick={() => handleApply(job._id)}
+                                    disabled={appliedJobs.has(job._id)}
+                                >
+                                    {appliedJobs.has(job._id) ? "Applied" : "Apply"}
+                                </Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
                 </div>
-            }
+            ))}
 
             {/* Modal */}
             <Modal show={showModal} onHide={handleCloseModal}>

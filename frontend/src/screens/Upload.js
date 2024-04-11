@@ -48,7 +48,7 @@ const Upload = () => {
             setSkills(data.skills);
             setRecommskills(data.recommskills);
             setTips(data.tips);
-    
+
         }
         else {
             setShowFailureModal(true);
@@ -123,13 +123,13 @@ const Upload = () => {
                                 <div className='mt-2 flex flex-row gap-3 overflow-x-scroll items-center' style={{ scrollbarWidth: 1 }}>
                                     {/* Display the skills extracted from the resume */}
                                     {skills.map((skill, index) => (
-                                        <span key={index} className='bg-blue-600 text-white px-4 py-2 rounded-full text-center'  style={{ whiteSpace: 'nowrap' }}>{skill}</span>
+                                        <span key={index} className='bg-blue-600 text-white px-4 py-2 rounded-full text-center' style={{ whiteSpace: 'nowrap' }}>{skill}</span>
                                     ))}
                                 </div>
                             </div>
 
                             {/* Recommended Skills */}
-                                
+
                             <div>
                                 <div className='mt-2 text-xl font-semibold'>
                                     Recommended skills:
@@ -137,7 +137,7 @@ const Upload = () => {
                                 <div className='mt-2 flex flex-row gap-3 overflow-x-scroll items-center' style={{ scrollbarWidth: 1 }}>
                                     {/* Display the skills extracted from the resume */}
                                     {recommskills.map((skill, index) => (
-                                        <span key={index} className='bg-blue-600 text-white px-4 py-2 rounded-full text-center'  style={{ whiteSpace: 'nowrap' }}>{skill}</span>
+                                        <span key={index} className='bg-blue-600 text-white px-4 py-2 rounded-full text-center' style={{ whiteSpace: 'nowrap' }}>{skill}</span>
                                     ))}
                                 </div>
                             </div>
@@ -147,11 +147,14 @@ const Upload = () => {
                                 <div className='mt-4 text-xl font-semibold'>
                                     Resume Tips:
                                 </div>
-                                <div className='mt-2'>
-                                    <div className='font-semibold'>1. Use bullet points to describe your work experience</div>
-                                    <div className='font-semibold'>2. Use action verbs to describe your work experience</div>
-                                    <div className='font-semibold'>3. Use a professional email address</div>
-                                </div>
+                                {
+                                    tips.map((tip, index) => (
+                                        <div className='mt-2'>
+                                            <div className='font-semibold'>{index+1}. {tip}</div>
+                                        </div>
+                                    ))
+                                }
+
                             </div>
 
                             {/* Recommended Video */}
