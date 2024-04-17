@@ -42,9 +42,29 @@ const JobCard = () => {
 
     const handleDetailedAnalysis = async (candidate) => {
         try {
-
             setSelectedCandidate(candidate);
             setShowDetailedModal(true);
+            const { jobProfile } = selectedJob;
+            let rankKey, matchKey, unmatchKey;
+
+            if (jobProfile === "Full Stack Developer") {
+                rankKey = 'rank1';
+                matchKey = 'match1';
+                unmatchKey = 'unmatch1';
+            } else {
+                rankKey = 'rank2';
+                matchKey = 'match2';
+                unmatchKey = 'unmatch2';
+            }
+
+            const updatedCandidate = {
+                ...candidate,
+                rank: candidate[rankKey],
+                match: candidate[matchKey],
+                unmatch: candidate[unmatchKey]
+            };
+
+            setSelectedCandidate(updatedCandidate);
         } catch (error) {
             console.log(error.message);
         }
@@ -140,7 +160,7 @@ const JobCard = () => {
                             </div>
                             <div className='mt-2 flex flex-row gap-3 overflow-x-scroll items-center' style={{ scrollbarWidth: 1 }}>
                                 {/* Display the matched skills */}
-                                {selectedCandidate.match1.map((matchedSkill, index) => (
+                                {selectedCandidate.match.map((matchedSkill, index) => (
                                     <span key={index} className='bg-green-600 text-white px-4 py-2 rounded-full text-center' style={{ whiteSpace: 'nowrap' }}>{matchedSkill}</span>
                                 ))}
                             </div>
@@ -149,12 +169,12 @@ const JobCard = () => {
                             </div>
                             <div className='mt-2 flex flex-row gap-3 overflow-x-scroll items-center' style={{ scrollbarWidth: 1 }}>
                                 {/* Display the unmatched skills */}
-                                {selectedCandidate.unmatch1.map((unmatchedSkill, index) => (
+                                {selectedCandidate.unmatch.map((unmatchedSkill, index) => (
                                     <span key={index} className='bg-red-600 text-white px-4 py-2 rounded-full text-center' style={{ whiteSpace: 'nowrap' }}>{unmatchedSkill}</span>
                                 ))}
                             </div>
                             <div className='mt-3 text-center bg-slate-200 p-3'>
-                                <span className="font-semibold text-center">Percentage Matching:</span> {selectedCandidate.rank1}%
+                                <span className="font-semibold text-center">Percentage Matching:</span> {selectedCandidate.rank}%
                             </div>
                         </div>
                     )}

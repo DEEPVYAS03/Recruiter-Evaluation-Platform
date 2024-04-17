@@ -81,7 +81,6 @@ function HomeNavbar(props) {
             {
               post &&
               <>
-                <Nav.Link href="/hr/home">Search</Nav.Link>
                 <Nav.Link href="/" onclick={handleLogout}>Logout</Nav.Link>
               </>
             }
